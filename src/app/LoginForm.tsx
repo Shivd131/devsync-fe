@@ -9,6 +9,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from 'react-redux';
 import { useRouter } from "next/navigation";
 import { ReactTyped } from 'react-typed';
+import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
+
 
 interface LoginSchema {
   username: string;
@@ -39,6 +41,11 @@ const LoginForm: React.FC = () => {
       }
     },
   });
+
+  isMobile && console.log("mobile")
+  isBrowser && console.log("laptop")
+
+  
 
   return (
     <div className='w-[40vw] max-lg:w-[70vw] max-sm:w[90vw] rounded p-5 lg:ml-[8vw] flex flex-col gap-10'>
