@@ -43,7 +43,7 @@ const LoginForm: React.FC = () => {
   });
 
   isMobile && console.log("mobile")
-  isBrowser && console.log("laptop")
+  isBrowser && console.log()
 
   
 

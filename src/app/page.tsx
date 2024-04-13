@@ -8,7 +8,7 @@ export default function Home() {
       <LoginForm />
       <div className="h-screen w-[40vw] bg-[#33B3AE] max-lg:hidden flex flex-col justify-center items-center py-20 px-10 gap-10">
         <p className="text-black text-5xl font-extrabold ">New Here?</p>
-        <p className="text-center">Sign up now to elevate your coding experience with remote terminal access, streaming videos, directory management, and much more</p>
+        <p className="text-center">Sign up now to elevate your coding experience with remote terminal access, streaming videos, directory management, and much more.</p>
         <Button className="bg-black rounded-full  p-7 px-10 text-lg text-white">
           Sign Up
         </Button>

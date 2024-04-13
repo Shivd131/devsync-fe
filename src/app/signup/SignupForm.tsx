@@ -52,7 +52,7 @@ const SignupForm: React.FC = () => {
   return (
     <div className='w-[40vw] max-lg:w-[70vw] max-sm:w[90vw] rounded p-5 lg:mr-[8vw] flex flex-col gap-10'>
       <ToastContainer />
-      <p className='text-cyan text-center text-4xl font-semibold'>Signup to <ReactTyped strings={["DevSync"]} typeSpeed={300} loop backSpeed={30} /></p>
+      <p className='text-cyan text-center text-4xl font-semibold max-sm:text-2xl'>Signup to <ReactTyped strings={["DevSync"]} typeSpeed={300} loop backSpeed={30} /></p>
 
       <form onSubmit={formik.handleSubmit} className='flex flex-col gap-6'>
       <Input
@@ -122,13 +122,13 @@ const SignupForm: React.FC = () => {
         />
         {formik.errors.password && <div className='text-white text-xs'>{formik.errors.password}</div>}
         <div className='flex flex-col w-full gap-3'>
-          <Button type='submit' className='bg-cyan rounded-sm text-black text-lg font-medium '>
+          <Button href='/signup' type='submit' className='bg-cyan rounded-sm text-black text-lg font-medium '>
             Sign Up
           </Button>
         </div>
       </form>
-      <p className='text-white lg:hidden text-center'>
-        Already have an account? <a href='/'>Log in</a>
+      <p className='text-white text-center'>
+        Already have an account? <a href='/' className='underline'>Log in</a>
       </p>
     </div>
   );
