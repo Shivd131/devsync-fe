@@ -73,7 +73,7 @@ const Page = (props: Props) => {
                         <Image src={logo} alt="" className="h-7 w-auto" />
                         <Image src={logoone} alt="" className="h-7 w-auto" />
                     </div>
-                    <Image src={edit} alt="" onClick={() => setIsModalOpen(true)} /> {/* Open modal on click */}
+                    <Image src={edit} alt="" onClick={() => setIsModalOpen(true)} /> 
                 </div>
                 <p className="text-white text-lg pt-3 ">Your Terminals</p>
 

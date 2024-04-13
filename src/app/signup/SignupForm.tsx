@@ -1,17 +1,14 @@
-"use client"
 import React from 'react';
 import { useFormik } from 'formik';
-import { object, string, TypeOf } from 'zod';
+import { object, string } from 'zod';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import { Button, Input } from '@nextui-org/react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useDispatch } from 'react-redux';
 import { useRouter } from "next/navigation";
 import { ReactTyped } from 'react-typed';
 import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
-
-
+import axios from 'axios'
 interface SignupSchema {
   name: string;
   email: string;
@@ -25,29 +22,38 @@ const SignupSchema = object({
   username: string().max(50),
   password: string().min(6, 'Password must be at least 6 characters'),
 });
+
 const SignupForm: React.FC = () => {
   const router = useRouter();
-  const dispatch = useDispatch();
 
   const formik = useFormik<SignupSchema>({
     initialValues: {
       name: '',
-      email:'',
+      email: '',
       username: '',
       password: '',
     },
     validationSchema: toFormikValidationSchema(SignupSchema),
     onSubmit: async (values) => {
       try {
-        router.push('/')
-        console.log(values);
+        const url = process.env.NEXT_PUBLIC_PRODUCT_API_URL;
+        const response = await axios.post(`${url}/register`, values);
+
+
+        if (!response.data || response.data.type !== 'success') {
+          throw new Error('Failed to register');
+        }
+
+        console.log(response.data);
+
+        router.push('/');
+
+        router.push('/');
       } catch (error) {
-        console.error('Error logging in:', error);
+        console.error('Error registering:', error);
       }
     },
   });
-
-  
 
   return (
     <div className='w-[40vw] max-lg:w-[70vw] max-sm:w[90vw] rounded p-5 lg:mr-[8vw] flex flex-col gap-10'>
@@ -55,7 +61,7 @@ const SignupForm: React.FC = () => {
       <p className='text-cyan text-center text-4xl font-semibold max-sm:text-2xl'>Signup to <ReactTyped strings={["DevSync"]} typeSpeed={300} loop backSpeed={30} /></p>
 
       <form onSubmit={formik.handleSubmit} className='flex flex-col gap-6'>
-      <Input
+        <Input
           variant='underlined'
           id='name'
           name='name'
@@ -122,7 +128,7 @@ const SignupForm: React.FC = () => {
         />
         {formik.errors.password && <div className='text-white text-xs'>{formik.errors.password}</div>}
         <div className='flex flex-col w-full gap-3'>
-          <Button href='/signup' type='submit' className='bg-cyan rounded-sm text-black text-lg font-medium '>
+          <Button type='submit' className='bg-cyan rounded-sm text-black text-lg font-medium'>
             Sign Up
           </Button>
         </div>
