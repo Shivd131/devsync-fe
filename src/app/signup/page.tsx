@@ -6,7 +6,7 @@ import vassss from "../../../public/vassss.svg"
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
-export default function Home() {
+export default function Page() {
     const animationProps = {
         scale: [1, 1.2, 1], 
         transition: { duration: 1, repeat: Infinity }, 

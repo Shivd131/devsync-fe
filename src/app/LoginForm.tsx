@@ -3,13 +3,14 @@ import React from 'react';
 import { useFormik } from 'formik';
 import { object, string, TypeOf } from 'zod';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
-import { Button, Input } from '@nextui-org/react';
+import { Input } from '@nextui-org/react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from 'react-redux';
 import { useRouter } from "next/navigation";
 import { ReactTyped } from 'react-typed';
 import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure } from "@nextui-org/react";
 
 
 interface LoginSchema {
@@ -25,7 +26,12 @@ const LoginSchema = object({
 const LoginForm: React.FC = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
+
+  const handleOpen = () => {
+    onOpen();
+  }
   const formik = useFormik<LoginSchema>({
     initialValues: {
       username: '',
@@ -34,8 +40,8 @@ const LoginForm: React.FC = () => {
     validationSchema: toFormikValidationSchema(LoginSchema),
     onSubmit: async (values) => {
       try {
-        router.push('/home')
         console.log(values);
+        router.push("/dashboard")
       } catch (error) {
         console.error('Error logging in:', error);
       }
@@ -45,7 +51,7 @@ const LoginForm: React.FC = () => {
   isMobile && console.log("mobile")
   isBrowser && console.log()
 
-  
+
 
   return (
     <div className='w-[40vw] max-lg:w-[70vw] max-sm:w[90vw] rounded p-5 lg:ml-[8vw] flex flex-col gap-10'>
@@ -95,6 +101,42 @@ const LoginForm: React.FC = () => {
       <p className='text-white lg:hidden text-center'>
         Do not have an account? <a href='/'>Sign Up</a>
       </p>
+
+      <Modal backdrop="blur" isOpen={isOpen} onClose={onClose} size='2xl'>
+        <ModalContent>
+          {(onClose) => (
+            <div className='bg-cyan '>
+              <ModalHeader className="flex flex-col gap-1 text-3xl">Welcome to DevSync</ModalHeader>
+              <ModalBody>
+                <p className='text-justify'>
+                  Boost your coding experience with remote terminal access, smooth video streaming, efficient directory management, and more. Dive into a world of productivity tools designed to enhance your development workflow effortlessly.
+                </p>
+
+              </ModalBody>
+              <ModalFooter className='flex flex-col justify-center items-center'>
+                <div className='flex flex-col w-full gap-5 text-white'>
+                  <Button className='bg-black text-white py-6  rounded-md'>
+                    Create Session
+                  </Button>
+                  <Button className='bg-black text-white py-6  rounded-md'>
+                    Join Session
+                  </Button>
+                  <Button className='bg-white text-black py-6  rounded-md'>
+                    My Session
+                  </Button>
+
+                </div>
+                <div className='self-end'>
+                  <Button color="danger" variant="light" onPress={onClose}>
+                    Close
+                  </Button>
+                </div>
+
+              </ModalFooter>
+            </div>
+          )}
+        </ModalContent>
+      </Modal>
     </div>
   );
 };
