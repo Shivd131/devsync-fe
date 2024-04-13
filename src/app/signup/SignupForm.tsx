@@ -39,7 +39,7 @@ const SignupForm: React.FC = () => {
     validationSchema: toFormikValidationSchema(SignupSchema),
     onSubmit: async (values) => {
       try {
-        router.push('/home')
+        router.push('/')
         console.log(values);
       } catch (error) {
         console.error('Error logging in:', error);

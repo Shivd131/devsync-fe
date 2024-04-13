@@ -10,6 +10,7 @@ import StreamComponent from "./StreamComponent";
 import Terminal1Component from "./Terminal1Component";
 import Terminal2Component from "./Terminal2Component";
 import terminalicon from "../../../public/terminal.svg"
+import Editor, { DiffEditor, useMonaco, loader } from '@monaco-editor/react';
 
 const Page = () => {
     const [activeOption, setActiveOption] = useState("");
@@ -50,6 +51,7 @@ const Page = () => {
             {/* {activeOption &&
                     sidebarOptions.find((option) => option.name === activeOption)?.component} */}
             <ConnectComponent />
+            {/* <Editor height="90vh" defaultLanguage="javascript" defaultValue="// some comment" /> */}
         </div>
     );
 };

@@ -4,8 +4,14 @@ import plug from "../../../public/plug.svg"
 import Image from 'next/image';
 import SessionComponent from './SessionComponent';
 type Props = {}
+import { useRouter } from 'next/navigation';
 
 const ConnectComponent = (props: Props) => {
+    const router = useRouter();
+
+    function handleClick(): void {
+        router.push("/terminal")
+    }
 
     return (
         <div className='flex flex-col  w-full justify-center bg-black text-white px-28 py-10 max-md:px-16 '>
@@ -22,9 +28,11 @@ const ConnectComponent = (props: Props) => {
                             ]
                         }}
                     ></Input>
+
                     <Button
                         className='bg-cyan px-10 font-medium'
                         startContent=<Image src={plug} alt='' />
+                        onClick={handleClick}
                     >
                         Connect
                     </Button>
@@ -58,10 +66,10 @@ const ConnectComponent = (props: Props) => {
                     <p>Session Status</p>
                 </div>
                 <div className='grid grid-cols-4 p-3 w-full py-2 justify-between items-center'>
-                    <p>sdf</p>
-                    <p>sfe</p>
-                    <p>sdf</p>
-                    <p>sfsdf</p>
+                    <p>7365</p>
+                    <p>7</p>
+                    <p>23 mins</p>
+                    <p>Active</p>
                 </div>
             </div>
         </div>
