@@ -12,7 +12,8 @@ const config: Config = {
     colors: {
       'white': '#CBCBCB',
       'cyan': '#33B3AE',
-      'black': "#0E1217"
+      'black': "#0E1217",
+      'blue': "#1b222b"
     },
     extend: {
       backgroundImage: {
@@ -29,6 +30,9 @@ const config: Config = {
         colors: {
           primary: {
             DEFAULT: "#33B3AE"
+          },
+          secondary: {
+            DEFAULT: "#10141a"
           }
         }
       }
