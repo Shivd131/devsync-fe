@@ -1,9 +1,19 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import authReducer from './authSlice';
+import userReducer from './userSlice';
+import websocketReducer from './websocketSlice';
+import networkUrlReducer from './networkUrlSlice';
+import networkUrlSlice from './networkUrlSlice';
 
 const rootReducer = combineReducers({
     //reducers will go here
+    auth:authReducer,
+    user: userReducer,
+    websocket: websocketReducer,
+    networkUrl: networkUrlSlice
+
 });
 
 const persistConfig = {

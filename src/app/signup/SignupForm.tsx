@@ -3,12 +3,14 @@ import { useFormik } from 'formik';
 import { object, string } from 'zod';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import { Button, Input } from '@nextui-org/react';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/navigation";
 import { ReactTyped } from 'react-typed';
 import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
 import axios from 'axios'
+import { UseSelector } from 'react-redux';
+
 interface SignupSchema {
   name: string;
   email: string;
@@ -24,6 +26,7 @@ const SignupSchema = object({
 });
 
 const SignupForm: React.FC = () => {
+  
   const router = useRouter();
 
   const formik = useFormik<SignupSchema>({
@@ -47,10 +50,9 @@ const SignupForm: React.FC = () => {
         console.log(response.data);
 
         router.push('/');
-
-        router.push('/');
       } catch (error) {
         console.error('Error registering:', error);
+        toast.error("Error Registering")
       }
     },
   });

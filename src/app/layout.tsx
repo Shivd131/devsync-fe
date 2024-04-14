@@ -19,8 +19,11 @@ export default async function RootLayout({
     <html lang="en" className="bg-black">
       <body className="">
         <Providers>
-          {children}
+
+            {children}
+
         </Providers>
+
       </body>
     </html>
   );

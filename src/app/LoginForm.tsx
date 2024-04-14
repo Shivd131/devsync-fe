@@ -4,14 +4,16 @@ import { useFormik } from 'formik';
 import { object, string, TypeOf } from 'zod';
 import { toFormikValidationSchema } from 'zod-formik-adapter';
 import { Input } from '@nextui-org/react';
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from 'react-redux';
 import { useRouter } from "next/navigation";
 import { ReactTyped } from 'react-typed';
 import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure } from "@nextui-org/react";
-
+import { setToken } from '@/redux/authSlice';
+import axios from 'axios';
+import { setUser } from '@/redux/userSlice';
 
 interface LoginSchema {
   username: string;
@@ -20,10 +22,11 @@ interface LoginSchema {
 
 const LoginSchema = object({
   username: string().max(50),
-  password: string().min(6, 'Password must be at least 6 characters'),
+  password: string(),
 });
 
 const LoginForm: React.FC = () => {
+
   const router = useRouter();
   const dispatch = useDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -41,9 +44,16 @@ const LoginForm: React.FC = () => {
     onSubmit: async (values) => {
       try {
         console.log(values);
+        const url = process.env.NEXT_PUBLIC_PRODUCT_API_URL;
+        const response = await axios.post(`${url}/login`, values);
+        const { token, userData } = response.data;
+        dispatch(setToken(token))
+        dispatch(setUser(userData));
+
         router.push("/dashboard")
       } catch (error) {
         console.error('Error logging in:', error);
+        toast.error("Error logging in")
       }
     },
   });
